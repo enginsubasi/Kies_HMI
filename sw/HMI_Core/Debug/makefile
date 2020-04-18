@@ -8,11 +8,8 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
--include USB_DEVICE/Target/subdir.mk
--include USB_DEVICE/App/subdir.mk
--include Middlewares/ST/STM32_USB_Device_Library/Core/Src/subdir.mk
--include Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/subdir.mk
 -include Drivers/STM32F1xx_HAL_Driver/Src/subdir.mk
+-include Core/fatfs/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
 -include subdir.mk
@@ -36,6 +33,12 @@ default.size.stdout \
 OBJDUMP_LIST += \
 HMI_Core.list \
 
+OBJCOPY_HEX += \
+HMI_Core.hex \
+
+OBJCOPY_SREC += \
+HMI_Core.srec \
+
 
 # All Target
 all: HMI_Core.elf secondary-outputs
@@ -56,12 +59,22 @@ HMI_Core.list: $(EXECUTABLES)
 	@echo 'Finished building: $@'
 	@echo ' '
 
+HMI_Core.hex: $(EXECUTABLES)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "HMI_Core.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
+HMI_Core.srec: $(EXECUTABLES)
+	arm-none-eabi-objcopy  -O srec $(EXECUTABLES) "HMI_Core.srec"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
 	-$(RM) *
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX) $(OBJCOPY_SREC)
 
 .PHONY: all clean dependents
 .SECONDARY:

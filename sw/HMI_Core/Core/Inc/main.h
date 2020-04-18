@@ -47,14 +47,15 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-
+#define SD_CARD_CS_SET   HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_SET)
+#define SD_CARD_CS_RESET HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_RESET)
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+void Delay_NOP ( uint16_t DelayCount );
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
