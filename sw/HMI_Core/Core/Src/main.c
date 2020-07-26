@@ -78,9 +78,9 @@ double currFilt     = 0;
 
 const double filterAlpha=0.1;   // EMAF coefficient
 
-const double rshunt = 1;        // Ohm
-const double ri     = 1000;     // Ohm
-const double rf     = 2000;     // Ohm
+const double rshunt = 0.05;        // Ohm
+const double ri     = 1100;     // Ohm
+const double rf     = 22000;     // Ohm
 
 double gain         = 0;                // Opamp amplifier gain rate
 
@@ -256,7 +256,16 @@ int main(void)
 
             sprintf ( ( char* ) tempTickStr, "%lu\t%lu\t%lu\r\n", cntr1sec, ( uint32_t ) voltFilt, ( uint32_t ) currFilt );
 
-            SD_Card_File_Write_Append ( "test1.txt", ( char* ) tempTickStr, "", 3 );
+            if ( HAL_GetTick ( ) > 20000 )
+            {
+                if ( SD_Card_File_Write_Append ( "test1.txt", ( char* ) tempTickStr, "", 3 ) == FALSE )
+                {
+                    HAL_GPIO_WritePin ( LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET );
+                    HAL_GPIO_TogglePin ( LED2_GPIO_Port, LED2_Pin );
+                }
+            }
+
+
 
             HAL_GPIO_WritePin ( LED4_GPIO_Port, LED4_Pin, GPIO_PIN_RESET );
 	  }
