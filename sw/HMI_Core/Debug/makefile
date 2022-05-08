@@ -44,8 +44,8 @@ HMI_Core.srec \
 all: HMI_Core.elf secondary-outputs
 
 # Tool invocations
-HMI_Core.elf: $(OBJS) $(USER_OBJS) C:\Users\EnginDesktop\Documents\GitHub\Kies_HMI\sw\HMI_Core\STM32F103C8TX_FLASH.ld
-	arm-none-eabi-gcc -o "HMI_Core.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\EnginDesktop\Documents\GitHub\Kies_HMI\sw\HMI_Core\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="HMI_Core.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+HMI_Core.elf: $(OBJS) $(USER_OBJS) C:\Users\engin\Documents\GitHub\Kies_HMI\sw\HMI_Core\STM32F103C8TX_FLASH.ld
+	arm-none-eabi-gcc -o "HMI_Core.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\engin\Documents\GitHub\Kies_HMI\sw\HMI_Core\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="HMI_Core.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

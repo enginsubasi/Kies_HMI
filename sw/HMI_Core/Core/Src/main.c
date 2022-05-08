@@ -229,6 +229,25 @@ int main(void)
   // Start measurement and filtering interrupt at 1 millisecond.
   HAL_TIM_Base_Start_IT ( &htim4 );
 
+
+// bintest
+  uint8_t testar[512];
+
+  for ( int i = 0; i < 512; ++i )
+  {
+      testar[ i ] = i % 256;
+  }
+
+  FIL     Filx;
+  fr = FR_INVALID_PARAMETER;
+  fr = f_open ( &Filx, "hey.bin", FA_CREATE_ALWAYS );
+  fr = f_close ( &Filx );
+
+  fr = f_open ( &Filx, "hey.bin", FA_READ | FA_WRITE );
+  fr = f_write ( &Filx, testar, 512, NULL );
+  fr = f_close ( &Filx );
+
+//bintest
   /* USER CODE END 2 */
 
   /* Infinite loop */
